@@ -1,8 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
-	// Muestra el modal automáticamente al cargar la página
-	$("#reservationModal").modal("show");
-  });
-
 $(document).ready(function($) {
 
 	"use strict";
