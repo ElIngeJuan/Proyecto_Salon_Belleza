@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    {% block content %}
+    <h1>Mis reservas</h1>
+
+    <table>
+        <tr>
+            <th>Numero de reserva</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Nombre del servicio</th>
+            <th>Recomendaciones</th>
+        </tr>
+        {% for reserva in reservas %}
+        <tr>
+            <a href="{% url 'reserva_detail' reserva.id %}">
+                <td>{{reserva.id}}</td>
+                <td>{{reserva.fecha_reserva}}</td>
+                <td>{{reserva.hora_reseserva}}</td>
+                <td>{{reserva.servicio}}</td>
+                <td>{{reserva.recomendaciones}}</td>
+            </a>
+
+        </tr>
+        {% endfor %}    
+
+    {% endblock %}
+
+</body>
+</html>
