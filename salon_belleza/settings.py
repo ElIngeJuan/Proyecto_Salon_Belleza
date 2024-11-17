@@ -118,16 +118,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-
-# Directorios donde están tus archivos estáticos
+# settings.py
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "css",    # Carpeta css
-    BASE_DIR / "js",     # Carpeta js
-    BASE_DIR / "images", # Carpeta imágenes
-    BASE_DIR / "fonts",  # Carpeta fuentes
-    BASE_DIR / "scss", # Carpeta vendor
+    BASE_DIR / "static",  # Solo si colocaste la carpeta en la raíz
 ]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
