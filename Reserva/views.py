@@ -8,6 +8,7 @@ from django.shortcuts import redirect
 from .forms import FormularioReserva
 from .models import Reserva
 from django.contrib.auth.decorators import login_required
+from Servicio.models import  Servicio
 
 # Create your views here.
 
@@ -79,6 +80,14 @@ def ver_reservas(request):
     return render(request, 'ver_reserva.html', {
         'reservas': reservas
     })
+
+def ver_servicio(request):
+    servicio = Servicio.objects.all()
+    return render(request, 'servicios.html', {
+        'servicios':servicio
+    })
+
+
 
 def reserva_detalle(request, id):
     reserva = get_object_or_404(Reserva, pk=id)
