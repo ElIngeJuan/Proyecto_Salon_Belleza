@@ -120,6 +120,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Directorios donde están tus archivos estáticos
+STATICFILES_DIRS = [
+    BASE_DIR / "css",    # Carpeta css
+    BASE_DIR / "js",     # Carpeta js
+    BASE_DIR / "images", # Carpeta imágenes
+    BASE_DIR / "fonts",  # Carpeta fuentes
+    BASE_DIR / "scss", # Carpeta vendor
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
