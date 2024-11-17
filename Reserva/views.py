@@ -7,6 +7,7 @@ from django.db import IntegrityError
 from django.shortcuts import redirect
 from .forms import FormularioReserva
 from .models import Reserva
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -17,7 +18,7 @@ def registrar_usuario(request):
                 usuario = User.objects.create_user(
                     username=request.POST['username'], password=request.POST['password1']
                     )
-                cliente_group = Group.objects.get(name='Cliente')  # Asume que el grupo existe
+                cliente_group = Group.objects.get(name='cliente')  # Asume que el grupo existe
                 usuario.groups.add(cliente_group)
                 usuario.save()
                 return redirect('login_usuario')
@@ -35,7 +36,7 @@ def login_usuario(request):
         usuario = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         if usuario is not None:
             login(request, usuario)
-            return redirect('inicio_cliente')
+            return redirect('redirigir_tipo_usuario')
         else:
             return render(request, 'inicio_sesion.html', {
                 'form' : AuthenticationForm(),
@@ -47,6 +48,12 @@ def login_usuario(request):
 
 def log_out_user(request):
     logout(request)
+    return redirect('inicio_cliente')
+
+@login_required
+def redirigir_tipo_usuario(request):
+    if request.user.groups.filter(name='administrador').exists():
+        return redirect('inicio_admin')
     return redirect('inicio_cliente')
 
 def inicio_cliente(request):
