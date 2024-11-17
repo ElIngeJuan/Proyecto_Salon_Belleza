@@ -9,4 +9,7 @@ urlpatterns = [
     path('logout/', views.log_out_user, name='log_out_user'),
     path('create/', views.create_servicio, name='create_servicio'),
     path('mis_reservas/', views.ver_reservas, name='ver_reservas'),
+    path('mis_reservas/<int:id>/', views.reserva_detalle, name='reserva_detalle'),
+    path('mis_reservas/<int:id>/update/', views.actualizar_reserva, name='actualizar_reserva'),
+    path('mis_reservas/<int:id>/delete/', views.eliminar_reserva, name='eliminar_reserva'),
 ]
