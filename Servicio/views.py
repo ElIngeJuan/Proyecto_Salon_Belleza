@@ -7,6 +7,7 @@ from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from .forms import FormularioServicio
+from .models import Servicio
 
 # Create your views here.
 
@@ -36,10 +37,48 @@ def registrar_admin(request):
 
 def crear_servicio(request):
     if request.method == 'POST':
-        form = FormularioServicio(request.POST)
-        servicio = form.save(commit=False)
-        servicio.save()
-        return redirect('inicio_admin')
+        form = FormularioServicio(request.POST, request.FILES)
+        if form.is_valid():
+            servicio = form.save(commit=False)
+            servicio.save()
+            return redirect('inicio_admin')
+        else:
+            return render(request, 'crear_servicio.html', {'form': form})
+
     return render(request, 'crear_servicio.html',{
         'form' : FormularioServicio()
     })
+
+
+def ver_servicios(request):
+    servicios = Servicio.objects.all()
+    return render(request, 'ver_servicios.html',{
+        'servicios' : servicios
+    })
+
+def servicio_detalle(request, id):
+    servicio = get_object_or_404(Servicio, pk=id)
+    return render(request, 'servicio_detalle.html',{
+        'servicio' : servicio
+    })
+
+def actualizar_servicio(request, id):
+    servicio = get_object_or_404(Servicio, pk=id)
+    if request.method == 'POST':
+        form = FormularioServicio(request.POST, request.FILES, instance=servicio)
+        if form.is_valid():
+            form.save()
+            return redirect('ver_servicios')
+        else:
+            return render(request, 'crear_servicio.html', {'form': form})
+
+    return render(request, 'crear_servicio.html',{
+        'form' : FormularioServicio(instance=servicio)
+    })
+
+
+def eliminar_servicio(request, id):
+    servicio = get_object_or_404(Servicio, pk=id)
+    if request.method == 'POST':
+        servicio.delete()
+    return redirect('ver_servicios')

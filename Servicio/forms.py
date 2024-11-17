@@ -7,7 +7,11 @@ class FormularioServicio(ModelForm):
         model = Servicio
         fields = ['imagen','nombre', 'descripcion', 'precio', 'duracion']
         widgets = {
-            'precio': forms.NumberInput(attrs={'step': '0.01'}),
+            'precio': forms.NumberInput(attrs={'step': '1000'}),
             'duracion': forms.TimeInput(attrs={'type': 'time'}),
-            'imagen': forms.ClearableFileInput(attrs={'multiple': False}),
         }
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['imagen'].widget.attrs.update(
+                {'accept': '.jpg, .jpeg, .png, .gif'})  # Permitir imágenes

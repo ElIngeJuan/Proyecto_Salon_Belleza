@@ -1,0 +1,41 @@
+{% extends 'base_admin.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    {% block content %}
+    <h1>{{titulo}}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for servicio in servicios %}
+            <tr>
+                <td>
+                    {% load static %}
+                    <a href="{% url 'servicio_detalle' servicio.id %}">
+                        <img src="{{servicio.imagen.url }}"  alt="">
+                        
+                    </a>
+                    <img 
+
+                    >
+                <td>{{servicio.nombre}}</td>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    {% endblock %}
+
+</body>
+</html>

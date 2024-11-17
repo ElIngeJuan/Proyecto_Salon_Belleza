@@ -125,6 +125,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-MEDIA_URL = '/media/'  # URL pública para acceder a los archivos
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Carpeta donde se guardan los archivos
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -8,6 +8,10 @@ urlpatterns = [
     path('registrar/', views.registrar_admin, name='registrar_admin'),
     path('inicio/', views.inicio_admin, name='inicio_admin'),
     path('crear_servicio/', views.crear_servicio, name='crear_servicio'),
+    path('ver_servicios/', views.ver_servicios, name='ver_servicios'),
+    path('ver_servicios/<int:id>/', views.servicio_detalle, name='servicio_detalle'),
+    path('ver_servicios/<int:id>/update/', views.actualizar_servicio, name='actualizar_servicio'),
+    path('ver_servicios/<int:id>/delete/', views.eliminar_servicio, name='eliminar_servicio'),
 ]
 
 

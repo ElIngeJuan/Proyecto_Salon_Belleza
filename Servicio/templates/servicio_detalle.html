@@ -1,0 +1,35 @@
+{% extends 'base_admin.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+            
+            {% block content %}
+
+            <h1>Detalle de Servicio</h1>
+
+            <h2>Nombre: {{servicio.nombre}}</h2>
+            <h2>Descripcion: {{servicio.descripcion}}</h2>
+            <h2>Precio: {{servicio.precio}}</h2>
+            <h2>Imagen: <img src="{{servicio.imagen.url}}" alt=""></h2>
+            <h2>Fecha de creacion: {{servicio.fecha_creacion}}</h2>
+
+            
+            <a href="{% url 'actualizar_servicio' servicio.id %}">Editar</a>
+
+            <form action="{% url 'eliminar_servicio' servicio.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Eliminar">
+
+            </form> 
+
+
+
+            {% endblock %}
+    
+</body>
+</html>
