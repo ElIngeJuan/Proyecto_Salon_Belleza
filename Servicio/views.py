@@ -27,10 +27,10 @@ def registrar_admin(request):
                 usuario.save()
                 return redirect('inicio_admin')
         except IntegrityError:
-            return render(request, 'registro.html',{
+            return render(request, 'registro_admin.html',{
             'form' : UserCreationForm,
             'error' : 'El usuario ya existe'})
-    return render(request, 'registro.html',{
+    return render(request, 'registro_admin.html',{
             'form' : UserCreationForm,
             'error' : "Contraseñas no coinciden"
         })
