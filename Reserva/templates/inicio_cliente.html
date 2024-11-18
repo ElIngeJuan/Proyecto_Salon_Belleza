@@ -11,8 +11,27 @@
     
   {% block content %}
 
-           
-  <section class="site-section" id="section-about">
+  {% if reservas_proximas %}
+  <div class="alert alert-info">
+      <h4>Recordatorio de citas próximas:</h4>
+
+          {% for reserva in reservas_proximas %}
+          <ul>
+              <li>
+                  {{ reserva.servicio }} - 
+                  {{ reserva.fecha_reserva|date:"d/m/Y" }} 
+                  a las {{ reserva.hora_reserva|time:"H:i" }}
+              </li>
+            </ul>
+          {% endfor %}
+  </div>
+  {% else %}
+  <div class="alert alert-warning">
+      <h4>No tienes reservas próximas.</h4>
+  </div>
+  {% endif %}         
+
+
       <div class="container">
           <div class="row">
               <div class="col-md-5 site-animate mb-5">

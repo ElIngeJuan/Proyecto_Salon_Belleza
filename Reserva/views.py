@@ -1,3 +1,5 @@
+from django.utils import timezone
+from datetime import timedelta
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, logout, login
 from django.http import HttpResponse
@@ -58,7 +60,14 @@ def redirigir_tipo_usuario(request):
     return redirect('inicio_cliente')
 
 def inicio_cliente(request):
-    return render(request, 'inicio_cliente.html')
+    ahora = timezone.now()
+
+    # Obtiene todas las reservas ordenadas por fecha y hora
+    reservas_proximas = Reserva.objects.filter(
+        usuario=request.user
+).order_by('fecha_reserva', 'hora_reserva')[:2] 
+    return render(request, 'inicio_cliente.html',
+                  {'reservas_proximas': reservas_proximas})
 
 from django.contrib import messages
 from django.shortcuts import render
