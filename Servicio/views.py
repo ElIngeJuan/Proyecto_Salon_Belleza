@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import FormularioServicio
 from .models import Servicio
 from django.contrib import messages
+from Reserva.models import Reserva
 
 # Create your views here.
 
@@ -91,3 +92,10 @@ def eliminar_servicio(request, id):
     if request.method == 'POST':
         servicio.delete()
     return redirect('ver_servicios')
+
+
+def ver_reservas(request):
+    reservas = Reserva.objects.all()
+    return render(request, 'ver_reservas.html', {
+        'reservas': reservas
+    })

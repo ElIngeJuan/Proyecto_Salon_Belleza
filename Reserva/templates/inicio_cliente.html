@@ -11,6 +11,7 @@
     
   {% block content %}
 
+  {% if user.is_authenticated %}
   {% if reservas_proximas %}
   <div class="alert alert-info">
       <h4>Recordatorio de citas próximas:</h4>
@@ -18,7 +19,7 @@
           {% for reserva in reservas_proximas %}
           <ul>
               <li>
-                  {{ reserva.servicio }} - 
+                  {{ reserva.servicio.nombre }} - 
                   {{ reserva.fecha_reserva|date:"d/m/Y" }} 
                   a las {{ reserva.hora_reserva|time:"H:i" }}
               </li>
@@ -29,7 +30,8 @@
   <div class="alert alert-warning">
       <h4>No tienes reservas próximas.</h4>
   </div>
-  {% endif %}         
+  {% endif %}  
+  {% endif %}       
 
 
       <div class="container">

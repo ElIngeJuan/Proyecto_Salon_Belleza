@@ -81,20 +81,13 @@ def create_servicio(request):
             reserva = form.save(commit=False)
             reserva.usuario = request.user
             reserva.save()
-            
-            # Agregar mensaje de éxito
             messages.success(request, 'La reserva se creó exitosamente.')
-            
-            # Renderizar la plantilla con el formulario vacío
             return render(request, 'crear_reserva.html', {
                 'form': FormularioReserva(),
                 'titulo': 'Crear Reserva',
             })
         else:
-            # Agregar mensaje de error
-            messages.error(request, 'Ocurrió un error al crear la reserva. Verifica los datos ingresados.')
-    
-    # Renderizar la plantilla con el formulario vacío (GET request o formulario inválido)
+            messages.error(request, 'La hora de la reserva debe estar entre las 8:00 AM y las 8:00 PM.')
     return render(request, 'crear_reserva.html', {
         'form': FormularioReserva(),
         'titulo': 'Crear Reserva',

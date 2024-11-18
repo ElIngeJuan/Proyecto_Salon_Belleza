@@ -8,8 +8,10 @@ class FormularioServicio(ModelForm):
         fields = ['imagen','nombre', 'descripcion', 'precio', 'duracion']
         widgets = {
             'precio': forms.NumberInput(attrs={'step': '1000'}),
-            'duracion': forms.TimeInput(attrs={'type': 'time'}),
+
         }
+
+        
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
