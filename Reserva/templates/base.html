@@ -29,13 +29,13 @@
 
         <div class="collapse navbar-collapse" id="site-nav">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active"><a href="/" class="nav-link mr-3" style="font-size: 1rem;">Home</a></li>
+            <li class="nav-item active"><a href="/" class="nav-link mr-3" style="font-size: 1rem;">Inicio</a></li>
             {% if user.is_authenticated %}
                 <li class="nav-item"><a href="/servicios" class="nav-link mr-3" style="font-size: 1rem;">Servicios</a></li>
                 <li class="nav-item"><a href="/mis_reservas" class="nav-link mr-3" style="font-size: 1rem;">Mis reservas</a></li>
-                <li class="nav-item"><a href="/logout" class="nav-link" style="font-size: 1rem;">Logout</a></li>
+                <li class="nav-item"><a href="/logout" class="nav-link" style="font-size: 1rem;">Cerrar Sesión</a></li>
             {% else %}
-                <li class="nav-item"><a href="/login" class="nav-link" style="font-size: 1rem;">Login</a></li>
+                <li class="nav-item"><a href="/login" class="nav-link" style="font-size: 1rem;">Iniciar Sesión</a></li>
             {% endif %}
           </ul> 
         </div>
@@ -56,11 +56,10 @@
         </div>
       </div>
     </section>
+    {% block content %}
+    {% endblock %}   
     
     <!-- END section -->
-
-    {% block content %}
-    {% endblock %}
 
       
     <footer class="site-footer site-bg-dark site-section">
