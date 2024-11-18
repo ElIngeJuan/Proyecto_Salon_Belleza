@@ -9,32 +9,39 @@
 <body>
     
     {% block content %}
-    <h1>Mis reservas</h1>
-
-    <table>
+    <h1>Mis Reservas</h1>
+  
+    <table class="table table-striped">
+      <thead>
         <tr>
-            <th>Numero de reserva</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Nombre del servicio</th>
-            <th>Recomendaciones</th>
+          <th>Numero de Reserva</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Nombre del Servicio</th>
+          <th>Recomendaciones</th>
         </tr>
+      </thead>
+      <tbody>
         {% for reserva in reservas %}
-        <tr>
+          <tr>
             <td>
-                <a href="{% url 'reserva_detalle' reserva.id %}">
-                    {{reserva.id}}
-                </a>
+              <a href="{% url 'reserva_detalle' reserva.id %}">
+                {{ reserva.id }}
+              </a>
             </td>
-            <td>{{reserva.fecha_reserva}}</td>
-            <td>{{reserva.hora_reseserva}}</td>
-            <td>{{reserva.servicio}}</td>
-            <td>{{reserva.recomendaciones}}</td>
-
-        </tr>
-        {% endfor %}    
-
-    {% endblock %}
+            <td>{{ reserva.fecha_reserva }}</td>
+            <td>{{ reserva.hora_reserva }}</td>
+            <td>{{ reserva.servicio }}</td> <!-- Aquí accedes al nombre del servicio -->
+            <td>{{ reserva.recomendaciones }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5">No tienes reservas.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endblock %}
 
 </body>
 </html>

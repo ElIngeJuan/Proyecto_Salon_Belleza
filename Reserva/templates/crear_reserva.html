@@ -9,17 +9,29 @@
 <body>
     {% block content %}
     
-    <h1>{{titulo}}</h1>
-
-    <form method="post">
-
-        {% csrf_token %}
-        {{form.as_p}}
-
-        <button type="submit">
-            Crear
-        </button>
-    </form>
+    <div class="container mt-5">
+        <h1 class="mb-4">{{ titulo }}</h1>
+    
+        <!-- Mostrar mensajes -->
+        {% if messages %}
+          <div class="messages">
+            {% for message in messages %}
+              <div class="alert 
+                {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" 
+                role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+    
+        <!-- Formulario -->
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Crear</button>
+        </form>
+      </div>
 
     {% endblock %}
     

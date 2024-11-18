@@ -60,23 +60,39 @@ def redirigir_tipo_usuario(request):
 def inicio_cliente(request):
     return render(request, 'inicio_cliente.html')
 
+from django.contrib import messages
+from django.shortcuts import render
+
 def create_servicio(request):
     if request.method == 'POST':
         form = FormularioReserva(request.POST)
-        reserva = form.save(commit=False)
-        reserva.usuario = request.user
-        reserva.save()
-        return render(request, 'crear_reserva.html', {
-            'form': FormularioReserva(),
-            'titulo': 'Crear Reserva',
-        })
+        if form.is_valid():
+            reserva = form.save(commit=False)
+            reserva.usuario = request.user
+            reserva.save()
+            
+            # Agregar mensaje de éxito
+            messages.success(request, 'La reserva se creó exitosamente.')
+            
+            # Renderizar la plantilla con el formulario vacío
+            return render(request, 'crear_reserva.html', {
+                'form': FormularioReserva(),
+                'titulo': 'Crear Reserva',
+            })
+        else:
+            # Agregar mensaje de error
+            messages.error(request, 'Ocurrió un error al crear la reserva. Verifica los datos ingresados.')
+    
+    # Renderizar la plantilla con el formulario vacío (GET request o formulario inválido)
     return render(request, 'crear_reserva.html', {
         'form': FormularioReserva(),
         'titulo': 'Crear Reserva',
     })
 
+
 def ver_reservas(request):
     reservas = Reserva.objects.filter(usuario=request.user)
+    print(reservas)
     return render(request, 'ver_reserva.html', {
         'reservas': reservas
     })
