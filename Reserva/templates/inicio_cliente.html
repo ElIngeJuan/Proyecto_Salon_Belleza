@@ -50,6 +50,30 @@
   </section>
   <!-- END section -->
   
+  
+  <section class="site-section bg-light" id="section-offer">
+  <div class="col-md-12">
+    <div class="owl-carousel site-owl">
+      
+      {% for servicio in servicios %}
+      <div class="item">
+        <div class="media d-block mb-4 text-center site-media site-animate border-0">
+          <img src="{{ servicio.imagen.url }}" alt="{{ servicio.nombre }}" class="img-fluid">
+          <div class="media-body p-md-5 p-4">
+            <h5 class="text-primary">${{ servicio.precio }}</h5>
+            <h5 class="mt-0 h4">{{ servicio.nombre }}</h5>
+            <p class="mb-4">{{ servicio.descripcion }}</p>
+            <p class="mb-4"><strong>Duración:</strong> {{ servicio.duracion }} minutos</p>
+            <p class="mb-0"><a href="{% url 'servicio_detalle' servicio.id %}" class="btn btn-primary btn-sm">Ver Más</a></p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+  </div>
+    </div>
+    </section>
       {% endblock %}
 
     

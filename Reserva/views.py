@@ -11,6 +11,8 @@ from .forms import FormularioReserva
 from .models import Reserva
 from django.contrib.auth.decorators import login_required
 from Servicio.models import  Servicio
+from django.contrib import messages
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -60,17 +62,17 @@ def redirigir_tipo_usuario(request):
     return redirect('inicio_cliente')
 
 def inicio_cliente(request):
-    ahora = timezone.now()
+    servicios = Servicio.objects.all() [:6]
+    if request.user.is_authenticated:
+        reservas_proximas = Reserva.objects.filter(
+            usuario=request.user ).order_by('fecha_reserva', 'hora_reserva')[:2]
 
-    # Obtiene todas las reservas ordenadas por fecha y hora
-    reservas_proximas = Reserva.objects.filter(
-        usuario=request.user
-).order_by('fecha_reserva', 'hora_reserva')[:2] 
-    return render(request, 'inicio_cliente.html',
-                  {'reservas_proximas': reservas_proximas})
-
-from django.contrib import messages
-from django.shortcuts import render
+        return render(request, 'inicio_cliente.html',
+                  {'reservas_proximas': reservas_proximas,
+                   'servicios': servicios})
+    return render(request, 'inicio_cliente.html',{
+        'servicios': servicios
+    })
 
 def create_servicio(request):
     if request.method == 'POST':

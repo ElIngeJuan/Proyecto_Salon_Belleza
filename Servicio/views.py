@@ -13,7 +13,10 @@ from django.contrib import messages
 # Create your views here.
 
 def inicio_admin(request):
-    return render(request, 'inicio_admin.html')
+    servicios = Servicio.objects.all()[:6]
+    return render(request, 'inicio_admin.html',{
+        'servicios' : servicios
+    })
 
 
 def registrar_admin(request):
