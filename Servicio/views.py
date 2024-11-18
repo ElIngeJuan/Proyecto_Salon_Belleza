@@ -8,6 +8,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from .forms import FormularioServicio
 from .models import Servicio
+from django.contrib import messages
 
 # Create your views here.
 
@@ -21,19 +22,22 @@ def registrar_admin(request):
             if request.POST['password1'] == request.POST['password2']:
                 usuario = User.objects.create_user(
                     username=request.POST['username'], password=request.POST['password1']
-                    )
+                )
                 admin_group = Group.objects.get(name='administrador')  # Asume que el grupo existe
                 usuario.groups.add(admin_group)
                 usuario.save()
-                return redirect('inicio_admin')
+                messages.success(request, 'Administrador registrado correctamente.')
+                return render(request, 'registro_admin.html', {
+        'form': UserCreationForm(),
+    })
+            else:
+                messages.error(request, 'Las contraseñas no coinciden.')
         except IntegrityError:
-            return render(request, 'registro_admin.html',{
-            'form' : UserCreationForm,
-            'error' : 'El usuario ya existe'})
-    return render(request, 'registro_admin.html',{
-            'form' : UserCreationForm,
-            'error' : "Contraseñas no coinciden"
-        })
+            messages.error(request, 'El usuario ya existe.')
+    
+    return render(request, 'registro_admin.html', {
+        'form': UserCreationForm(),
+    })
 
 def crear_servicio(request):
     if request.method == 'POST':
@@ -41,14 +45,16 @@ def crear_servicio(request):
         if form.is_valid():
             servicio = form.save(commit=False)
             servicio.save()
-            return redirect('inicio_admin')
-        else:
-            return render(request, 'crear_servicio.html', {'form': form})
-
-    return render(request, 'crear_servicio.html',{
-        'form' : FormularioServicio()
+            messages.success(request, 'Servicio creado correctamente.')
+            return render(request, 'crear_servicio.html', {
+        'form': FormularioServicio(),
     })
+        else:
+            messages.error(request, 'Hubo un error al crear el servicio.')
 
+    return render(request, 'crear_servicio.html', {
+        'form': FormularioServicio(),
+    })
 
 def ver_servicios(request):
     servicios = Servicio.objects.all()
