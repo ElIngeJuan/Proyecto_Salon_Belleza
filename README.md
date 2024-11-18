@@ -1,5 +1,7 @@
 # Proyecto Salon de belleza
 
+Los pasos mencionados en este README se recomienda que se realicen en la terminal de tu editor de código preferido, como Visual Studio Code, para una experiencia más fluida y eficiente.
+
 ###### 1. Crear un entorno virtual, hay muchas formas
 
     Opción 1: Crear un entorno virtual con el paquete que ya viene por defecto en las ultimas versiones de Python
